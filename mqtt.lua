@@ -476,20 +476,18 @@ function MQTT.client:handler()
   --
   -- bytes 1,2: Fixed message header, see MQTT.client:message_write()
 
-  -- local activity_timeout = self.last_activity + MQTT.client.KEEP_ALIVE_TIME
+  local activity_timeout = self.last_activity + MQTT.client.KEEP_ALIVE_TIME
 
-  -- if (MQTT.Utility.get_time() > activity_timeout) then
-  --   MQTT.Utility.debug("MQTT.client:handler(): PINGREQ")
+  if (MQTT.Utility.get_time() > activity_timeout) then
+     MQTT.Utility.debug("MQTT.client:handler(): PINGREQ")
 
-  --   self:message_write(MQTT.PINGREQ, nil)
-  -- end
+    self:message_write(MQTT.PINGREQ, nil)
+  end
 
   -- Check for available client socket data
   -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   local ready = MQTT.Utility.socket_ready(self.socket_client)
   if (ready) then
-
-
     --  parse message from buffer
     local  type_flags, data, length = readPacket(self.socket_client)
     if type_flags == nil or length == 0 then

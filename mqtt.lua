@@ -496,67 +496,7 @@ function MQTT.client:handler()
     
     self:parse_message(type_flags, length, data)
   end
-    -- return
 
-
-  --   local error_message, buffer = MQTT.Utility.socket_receive(self.socket_client,256)
-
-  --   if (error_message ~= nil) then
-  --     self:destroy()
-  --     error_message = "socket_client:receive(): " .. error_message
-  --     MQTT.Utility.debug(error_message)
-  --     return(error_message)
-  --   end
-
-  --   if (buffer ~= nil and #buffer > 0) then
-  --     local index = 1
-
-  --     -- Parse individual messages (each must be at least 2 bytes long)
-  --     -- Decode "remaining length" [MQTT-v3.1.1] (2.2.3) - Pages 18,19
-  --     while (index < #buffer) do
-  --       local message_type_flags = string.byte(buffer, index)
-  --       local multiplier = 1
-  --       local value = 0
-
-  --       repeat
-  --         index = index + 1
-  --         local encodedByte = string.byte(buffer, index)      -- 'next byte from stream'
-  --         value = value + ((encodedByte % 128) * multiplier)  -- (encodedByte & 127) * multiplier
-  --         multiplier = multiplier * 128
-  --       until encodedByte < 128                               -- check continuation bit
-  --       -- here 'value' contains remaining_length
-  --       local message = string.sub(buffer, index + 1, index + value)
-    
-  --       if (#message == value) then
-  --         self:parse_message(message_type_flags, value, message)
-  --       else
-  --         MQTT.Utility.debug(
-  --           "MQTT.client:handler(): Incorrect remaining length: " ..
-  --           value .. " ~= message length: " .. #message
-  --         )
-  --       end
-
-  --       index = index + value + 1
-  --     end
-
-  --     -- Check for any left over bytes, i.e. partial message received
-
-  --     if (index ~= (#buffer + 1)) then
-  --       local error_message =
-  --         "MQTT.client:handler(): Partial message received" ..
-  --         index .. " ~= " .. (#buffer + 1)
-
-  --       if (MQTT.ERROR_TERMINATE) then         -- TODO: Refactor duplicate code
-  --         self:destroy()
-  --         error(error_message)
-  --       else
-  --         MQTT.Utility.debug(error_message)
-  --       end
-  --     end
-  --   end
-  -- end
-
-  -- return
 end
 
 

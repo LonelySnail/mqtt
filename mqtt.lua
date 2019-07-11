@@ -491,6 +491,9 @@ function MQTT.client:handler()
     --  parse message from buffer
     local  type_flags, data, length = readPacket(self.socket_client)
     if type_flags == nil or length == 0 then
+    	if data == "closed" then
+        	self:destroy()
+      	end
       return
     end
     
